@@ -1,0 +1,284 @@
+ed - CHANGES << -*-END-*-
+43d
+2a
+	Sdb prints a warning if the object file is newer than the core
+	file or if any source files are newer than the object file.
+
+	The diagnostics for unknown variable names have been improved.
+	
+.
+1a
+
+Version 2.5  December 7, 1979
+.
+0a
+
+.
+w
+q
+-*-END-*-
+ed - display.c << -*-END-*-
+292c
+	if (debug)
+		printf ("PTR %d; FTN %d; ARY %d; SIZE %d; STSIZE %d\n",
+				ptr,ftn,ary,size,stsize);
+.
+249,250c
+	if ((ptr-subflag == 1  || ary-subflag == 1)  &&  desc[0] == 'c')
+		return("s");
+	if (debug)
+		printf ("PTR %d; FTN %d; ARY %d; DESC %s\n",ptr,ftn,ary,desc);
+.
+204a
+		if (var[0] == '.')
+			var++;
+.
+155a
+	}
+	if (integ) {
+		if (eqany(var[0], "->.[")) 
+			match++;
+		else
+			depthcnt = integ;
+	}
+.
+154c
+	if (integ && !eqany(var[0], "->.[")) {	
+.
+w
+q
+-*-END-*-
+ed - docomm.c << -*-END-*-
+386c
+				putval(addr,typetodesc(sl_type,subflag)[0],
+						argvalue(args));
+.
+384c
+				putreg(addr,typetodesc(sl_type,subflag)[0],
+						argvalue(args));
+.
+94c
+			printf("%.8s() in \"%s\"\n",
+				curproc()->pname, curfile);
+.
+w
+q
+-*-END-*-
+ed - fio.c << -*-END-*-
+148a
+/* Print n lines. */
+.
+132a
+/* Go forwards n lines. */
+.
+119a
+/* Go back n lines. */
+.
+93a
+/* Make line `num' current. */
+.
+80a
+/* Print the current line. */
+.
+64c
+						if (bread(&fiobuf,&c,1)<=0)
+							break;
+.
+49a
+/* Make the previous line current. */
+.
+30a
+/* Make the next line current. */
+.
+2a
+/*
+ * These procedures manage the source files examined by sdb.
+ */
+
+/* Change the current source file to `name'. */
+.
+w
+q
+-*-END-*-
+ed - head.h << -*-END-*-
+68a
+time_t	symtime;		/* modification time of symfil */
+.
+w
+q
+-*-END-*-
+ed - main.c << -*-END-*-
+69a
+
+	if (stat(symfil, &stbuf) == -1) {
+		printf("`%s' does not exist\n", symfil);
+		exit(4);
+	}
+	symtime = stbuf.st_mtime;
+	if (stat(corfil, &stbuf) != -1) {
+		if (symtime > stbuf.st_mtime)
+			printf("Warning: `%s' newer than `%s'\n",
+				symfil, corfil);
+	}
+
+.
+68d
+48a
+	struct stat stbuf;
+
+.
+10a
+#include	<sys/stat.h>
+.
+w
+q
+-*-END-*-
+ed - mktemp.c << -*-END-*-
+0a
+/* make temporary file with given prefix. */
+.
+w
+q
+-*-END-*-
+ed - prvar.c << -*-END-*-
+264a
+		}
+
+		if (errflg) {
+			printf("%s", errflg);
+			errflg = 0;
+			return;
+.
+157,159c
+l:;	}
+.
+140a
+			newaddr = arrowaddr + sl_addr;
+.
+137d
+119c
+		return(newaddr);
+.
+116,117c
+			if ((goffset = globallookup(var, goffset, 
+				typeflag!=INIT)) != -1)
+.
+112,113c
+				comblk)) != -1)
+.
+81c
+			return(0);
+.
+69c
+		arrowaddr = getindir(class, addr, sl_type);
+		if (errflg) {
+			printf("%s\n", errflg);
+			errflg = 0;
+			return(0);
+		}
+.
+26c
+	register ADDR newaddr = -1, arrowaddr;
+.
+24c
+	register int match;
+.
+19a
+ *
+ * Here and elsewhere we assume that -1 is an invalid address, and
+ *	its is used to indicate error.
+.
+17c
+ * prnamep: pointer to end of partially formed print name of variable
+.
+5a
+STRING	errflg;
+.
+w
+q
+-*-END-*-
+ed - symt.c << -*-END-*-
+476c
+		if (bread(&sbuf, &stentry, sizeof stentry) <
+				sizeof stentry) return(-1);
+.
+356c
+		if (bread(&sbuf, &stentry, sizeof stentry) 
+				< sizeof stentry) break;
+.
+305c
+			if (bread(&sbuf, &stentry, sizeof stentry) 
+					< sizeof stentry)
+.
+299c
+	if (((stentry.n_type & STABMASK) == N_LENG) &&
+			(eqpat(sl_name, stentry.n_name)))
+.
+265c
+		if (bread(&sbuf, &stentry, sizeof stentry) <
+				sizeof stentry) return(-1);
+.
+240c
+				for (i=0; i<8; i++) sl_name[i] =
+						stentry.n_name[i];
+.
+234c
+					bread(&sbuf, &stentry+1,
+							-sizeof stentry);
+.
+58a
+			if (stat(filep->sfilename, &stbuf) == -1)
+				printf("Warning: `%s' not found\n",
+					filep->sfilename);
+			else if (stbuf.st_mtime > symtime)
+				printf("Warning: `%s' newer than `%s'\n",
+					filep->sfilename,
+					symfil);
+.
+55c
+				if ((stentry.n_type & STABMASK) !=
+						(unsigned char) class)
+.
+53c
+				if (bread(&sbuf, &stentry, sizeof stentry) 
+						< sizeof stentry)
+.
+44c
+				    ((char *)badproc +
+						FILEINCR*sizeof filep[0]);
+.
+42c
+				    ((char *) procs +
+						FILEINCR*sizeof filep[0]);
+.
+40c
+				    ((char *) procp +
+						FILEINCR*sizeof filep[0]);
+.
+24c
+		if (bread(&sbuf, &stentry, sizeof stentry) <
+				sizeof stentry) break;
+.
+11a
+	struct stat stbuf;
+
+.
+5a
+char *symfil;
+.
+2a
+#include <sys/stat.h>
+.
+w
+q
+-*-END-*-
+ed - version.c << -*-END-*-
+2c
+	error("Version 2.5 - December 7, 1979");
+.
+w
+q
+-*-END-*-
+
+
+

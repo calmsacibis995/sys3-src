@@ -1,0 +1,4 @@
+echo "Start of update of VAX 11/780 LSI floppy for UNIX"
+vlx r *.cmd sash
+echo "New floppy table of contents"
+vlx tv

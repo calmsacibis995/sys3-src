@@ -1,0 +1,9 @@
+:	Make a new Yacc library
+
+cc -O -c *.c
+ar rv liby.a *.o
+rm *.o
+cp liby.a /usr/lib/liby.a
+chown bin /usr/lib/liby.a
+chmod 644 /usr/lib/liby.a
+rm -f liby.a

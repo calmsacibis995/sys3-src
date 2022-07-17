@@ -1,0 +1,3 @@
+cc -O -n -s logname.c -o logname -lPW
+/etc/install -n /usr/bin logname
+rm -f logname

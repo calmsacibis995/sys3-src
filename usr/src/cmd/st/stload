@@ -1,0 +1,5 @@
+/bin/kasb -d /dev/kmc0 <<!
+.reset
+.load "/etc/stproto"
+.run 6
+!

@@ -1,0 +1,3 @@
+cc -O -n -s bfs.c -o bfs -lPW
+/etc/install -n /usr/bin bfs
+rm -f bfs

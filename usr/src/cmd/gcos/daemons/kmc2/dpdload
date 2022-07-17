@@ -1,0 +1,7 @@
+kas[b] -d /dev/kmc? <<!
+.reset
+.load "/lib/vpmdpd.o"
+.reset
+.run 6
+!
+echo "/dev/kmc? loaded with vpm-dpd code"

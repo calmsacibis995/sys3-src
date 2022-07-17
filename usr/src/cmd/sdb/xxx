@@ -1,0 +1,83 @@
+access(mode,adr,space,value)                               _a_c_c_e_s_s
+acommand(cmds)                                           _a_c_o_m_m_a_n_d
+advance(lp, ep)                                           _a_d_v_a_n_c_e
+argvalue(p)                                              _a_r_g_v_a_l_u_e
+binit(brs)                                                  _b_i_n_i_t
+bpwait()                                                   _b_p_w_a_i_t
+bread(brs, buff, nbytes)                                    _b_r_e_a_d
+chkerr()                                                   _c_h_k_e_r_r
+chkmap(adr,space)                                          _c_h_k_m_a_p
+compar(a, b)                                               _c_o_m_p_a_r
+compile(astr)                                             _c_o_m_p_i_l_e
+core(s)                                                      _c_o_r_e
+cpall(p, q)                                                 _c_p_a_l_l
+cpname(p, q)                                               _c_p_n_a_m_e
+cpstr(p,q)                                                  _c_p_s_t_r
+create(f)                                                  _c_r_e_a_t_e
+decconv(c)                                                _d_e_c_c_o_n_v
+decdigit(c)                                              _d_e_c_d_i_g_i_t
+decode(p)                                                  _d_e_c_o_d_e
+delbp()                                                     _d_e_l_b_p
+dispf(addr, desc, class, type, subflag)                     _d_i_s_p_f
+dispvar(proc, var, fmt)                                   _d_i_s_p_v_a_r
+dispx(addr, desc, class, type, subflag)                     _d_i_s_p_x
+docomm(offset)                                             _d_o_c_o_m_m
+doexec()                                                   _d_o_e_x_e_c
+dtol(d)                                                      _d_t_o_l
+ecmp(a, b, count)                                            _e_c_m_p
+endpcs()                                                   _e_n_d_p_c_s
+eqany(c, s)                                                 _e_q_a_n_y
+eqpat(pat, str)                                             _e_q_p_a_t
+eqpatr(pat, str, cnt)                                      _e_q_p_a_t_r
+eqstr(s1, s2)                                               _e_q_s_t_r
+errexit(s)                                                _e_r_r_e_x_i_t
+error(s)                                                    _e_r_r_o_r
+execbkpt(bkptr,execsig)                                  _e_x_e_c_b_k_p_t
+extaddr(name)                                             _e_x_t_a_d_d_r
+fault(a)                                                    _f_a_u_l_t
+ffind(num)                                                  _f_f_i_n_d
+findfile(s)                                              _f_i_n_d_f_i_l_e
+findproc(s)                                              _f_i_n_d_p_r_o_c
+finit(name)                                                 _f_i_n_i_t
+formaddr(proc, class, addr)                              _f_o_r_m_a_d_d_r
+get(adr, space)                                 	      _P_O_S
+getfile(filnam,cnt)                                       _g_e_t_f_i_l_e
+getframe(proc)                                           _g_e_t_f_r_a_m_e
+getsig(sig)                                                _g_e_t_s_i_g
+getval(loc, d)                                             _g_e_t_v_a_l
+globallookup(pat, filestart, stelt)                  _g_l_o_b_a_l_l_o_o_k_u_p
+hexconv(c)                                                _h_e_x_c_o_n_v
+hexdigit(c)                                              _h_e_x_d_i_g_i_t
+inner(s)                                                    _i_n_n_e_r
+longseek(f, a)                                           _l_o_n_g_s_e_e_k
+main(argc, argv)                                             _m_a_i_n
+main(argc,argv,envp)                                         _m_a_i_n
+match(p1)                                                   _m_a_t_c_h
+mktemp(as)                                                 _m_k_t_e_m_p
+monex(loc, d)                                               _m_o_n_e_x
+nametofile(s)                                          _n_a_m_e_t_o_f_i_l_e
+octconv(c)                                                _o_c_t_c_o_n_v
+printbkpt(s, name, lineno)                              _p_r_i_n_t_b_k_p_t
+put(adr,space,value)                                          _p_u_t
+putreg(reg, d, value)                                      _p_u_t_r_e_g
+putval(loc, d, value)                                      _p_u_t_v_a_l
+rdc()                                                         _r_d_c
+readint(p)                                                _r_e_a_d_i_n_t
+readline(f)                                              _r_e_a_d_l_i_n_e
+readregs()                                               _r_e_a_d_r_e_g_s
+rint(p, base, digit, conv)                                   _r_i_n_t
+round(a,b)                                                  _r_o_u_n_d
+runpcs(runmode,execsig)                                    _r_u_n_p_c_s
+scanbkpt(adr)                               		    _B_K_P_T_R
+setbp()                                                     _s_e_t_b_p
+setcor()                                                   _s_e_t_c_o_r
+setsym()                                                   _s_e_t_s_y_m
+setup()                                                     _s_e_t_u_p
+singstep(count, cmd)                                     _s_i_n_g_s_t_e_p
+slookup(pat, poffset, stelt)                              _s_l_o_o_k_u_p
+sub(c)                                                        _s_u_b
+subpcs(modif)                                              _s_u_b_p_c_s
+typetodesc(type, subflag)                              _t_y_p_e_t_o_d_e_s_c
+typetosize(type, stsize)                               _t_y_p_e_t_o_s_i_z_e
+varaddr(proc, var)                                        _v_a_r_a_d_d_r
+within(adr,lbd,ubd)                                        _w_i_t_h_i_n

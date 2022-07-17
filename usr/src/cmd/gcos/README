@@ -1,0 +1,100 @@
+Steps to install files in gcos:
+
+1)  Edit the file gcos.h in both directory "spoolers" and
+	directory "daemons", defining the character strings PHONE_ID
+	and FGET_ID as the 2-character station id for GCOS that
+	has been assigned to your machine.  Check the last 8
+	lines of the header file gcos.h for the definitions
+	of DEVDU, DEVDN, and NUMBERS, and change them if necessary,
+	giving the proper device names for the dataphone (or vpm)
+	and acu devices, and the appropriate phone numbers
+	for calling GCOS.
+
+2)  Copy the file gerts.c into the directory daemons from
+	the appropriate subdirectory daemons/du, daemons/kmc1,
+	or daemons/kmc2, depending on whether you will be
+	using a du or KMC device.
+
+3)  Create the directory /usr/spool/dpd, writeable by everyone.
+
+4)  Create the file /usr/spool/dpd/errors, writeable by everyone,
+	if you want a record of the transactions of dpd and fget.demon.
+
+5)  Edit the makefile gcos.mk to change the first dependency
+	line from
+		all:
+	to
+		all:	spoolers daemons
+	and remove the next line
+			echo cat /usr/src/cmd/gcos/README
+
+6)  As user "daemon" and group "bin", execute the makefile:
+		make -f gcos.mk install
+    This should compile and install all the commands
+	(dpr, gcat, fget and fsend) into /usr/bin,
+	and all the daemons (dpd and fget.demon) into /usr/lib,
+	if they are not found elsewhere on your system.
+
+7)  Check to be sure that /usr/lib/dpd
+	is mode 4755 (set-user-id), and is owned by daemon.
+
+8)  Add the following code to /etc/rc (if it is not already there):
+		rm -f /usr/spool/dpd/lock /usr/spool/dpd/glock
+		/usr/lib/dpd
+
+9)  Add an entry to crontab to initiate fget.demon periodically.
+	e.g. every 15 minutes:
+		5,20,35,50  *  *  *  *  /usr/lib/fget.demon 20
+
+
+FOR KMC USERS:
+
+The KMC script must be compiled and loaded into the KMC.
+	The appropriate files are all in subdirectory daemons/kmc1
+	or daemons/kmc2, depending on whether the KMC will
+	be used merely to simulate a du, (daemons/kmc1), or
+	to supply most of the GRTS protocol (daemons/kmc2).
+	The recommended script is the one in daemons/kmc2.
+	Change to appropriate subdirectory.
+
+a)  For the daemons, copy the file gerts.c into the directory
+	daemons, (see step 2 above), and complete steps 1-9 above.
+
+Then, depending on whether your KMC is a model "A" or "B",
+	do the following:
+
+b)  Compile KMC script and save object in vpmdpd.o:
+
+	vpmc -m -i bisynca -o vpmdpd.o kmc.v	for KMC/A
+		or
+	vpmc -m -o vpmdpd.o kmc.v		for KMC/B
+
+c)  Load script into KMC:
+
+	/etc/vpmstarta /dev/kmc? 6 vpmdpd.o	for KMC/A
+		or
+	/etc/vpmstart /dev/kmc? 6 vpmdpd.o	for KMC/B
+
+	where "/dev/kmc?" is the name of the KMC device to be used
+	by dpd.
+
+d)  To automatically load the KMC at system start-up time:
+
+	1)  Move vpmdpd.o to /lib/vpmdpd.o
+
+	2)  Create the automatic load file, /etc/dpdload,
+		by editing the file dpdload in the current
+		subdirectory so that the first line is either
+
+		kas -d /dev/kmc? <<!		for KMC/A
+			or
+		kasb -d /dev/kmc? <<!		for KMC/B
+
+		Also modify the string "kmc?" in both the
+		first and last lines of dpdload to be the name
+		of the KMC device to be used by dpd, as in c) above.
+		Move this file to /etc/dpdload.
+
+	3)  Add the following line to /etc/rc:
+
+		/etc/dpdload

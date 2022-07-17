@@ -1,0 +1,76 @@
+#	Create the C library as /lib/libc.a
+#	[optional] -o or -n     for compiler other than cc
+
+trap "rm -f *.o a.out; exit" 0 1 2 3 15
+rm -f libc.a *.o
+
+echo /lib/libc.a
+echo
+
+c=cc
+case $1 in
+
+	-o)	c=occ
+		shift
+		;;
+
+	-n)	c=ncc
+		shift
+		;;
+
+esac
+echo Compiler: $c
+echo
+
+$c -Oc */*.[cs]
+if [ ! $? = 0 ]
+then
+	echo "Compiler failure"
+	exit
+fi
+
+mv *crt0.o /lib
+chmod 0664 /lib/*crt0.o
+chgrp bin /lib/*crt0.o
+chown bin /lib/*crt0.o
+
+echo
+echo "entering loader phase"
+echo
+
+for i in *.o
+do
+	echo $i
+	ld -rx $i
+	if [ $? -gt 1 ]
+	then
+		echo "$i: loader failure"
+		exit
+	fi
+	mv a.out $i
+	chmod 0664 $i
+	chgrp bin $i
+	chown bin $i
+done
+
+echo
+echo "make library"
+echo
+
+ar rv libc.a fltunused.o
+rm fltunused.o
+
+ar rv libc.a `lorder *.o | sed 's/^ *//' |
+		sort | comm -23 - order.out | cat order.in - | tsort`
+if [ ! $? = 0 ]
+then
+	echo "archive failure"
+	exit
+fi
+
+ar m libc.a fltunused.o
+
+mv libc.a /lib
+chmod 0664 /lib/libc.a
+chgrp bin /lib/libc.a
+chown bin /lib/libc.a

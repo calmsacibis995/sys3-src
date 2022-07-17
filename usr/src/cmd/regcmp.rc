@@ -1,0 +1,3 @@
+cc -O -s -n -o regcmp regcmp.c -lPW
+/etc/install -n /usr/bin regcmp
+rm -f regcmp

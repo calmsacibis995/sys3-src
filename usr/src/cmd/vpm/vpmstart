@@ -1,0 +1,19 @@
+: usage: vpmstart device n [filen]
+if
+test -z "$2" -o -n "$4"
+then
+echo "vpmstart: arg count"
+else
+if
+test -n "$3"
+then
+filen="$3"
+else
+filen="a.out"
+fi
+kasb -d "$1" <<!
+.reset
+.load "$filen"
+.run $2
+!
+fi

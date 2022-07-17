@@ -1,0 +1,16 @@
+cpio -i
+du -i
+dump -i
+echo -n
+fgrep -i
+find -i
+fsck -i
+mkfs -i
+nm -i
+pack -f
+pcat -i
+restor -i
+spline -i -f
+units -i -f
+unpack -i
+volcopy -i

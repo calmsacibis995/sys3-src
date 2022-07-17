@@ -1,0 +1,4 @@
+cc -c -g xeq.c
+cc -g -o sdb *.o
+echo DONE
+DONE

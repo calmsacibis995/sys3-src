@@ -1,0 +1,15 @@
+: make UNIX/TS libraries and initial systems
+
+if /bin/vax
+then
+	cd /usr/src/uts/vax/cf
+	config hpht
+	make install SYS=unix NODE=unix REL=3.0.1 VER=hpht
+else
+	cd /usr/src/uts/pdp11/cf
+	for i in hpht hptm rkht rktm rlht rltm rpht rptm
+	do
+		config $i
+		make install SYS=unix NODE=unix REL=3.0.1 VER=$i
+	done
+fi
